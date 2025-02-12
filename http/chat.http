@@ -1,0 +1,45 @@
+
+# user API
+
+###
+# baseURL
+@baseURL = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInBob25lTnVtYmVyIjoiKzkxODAwNzIwNDEzMyIsImlhdCI6MTczOTI3ODkxOCwiZXhwIjoxNzUyMjM4OTE4fQ.bHsPeLU8VS6mudIbM9aa8JOhgMuY2RKBb6S_aap95Vw
+
+### Get All Chat Threads
+GET {{baseURL}}/chats/threads
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Get Chat Thread by ID
+GET {{baseURL}}/chats/threads/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Create New Chat Thread
+POST {{baseURL}}/chats/threads
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "description": "New chat thread",
+    "userId": "1"
+}
+
+### Add Message to Thread
+POST {{baseURL}}/chats/threads/1/addMessage
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "message": "Hello, this is a test message"
+}
+
+### Add Code Message to Thread
+POST {{baseURL}}/chats/threads/1/addMessageForCode
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "message": "Write a Python function to calculate fibonacci"
+}

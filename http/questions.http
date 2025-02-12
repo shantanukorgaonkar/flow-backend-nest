@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:3000
+@resourceName = questions
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInBob25lTnVtYmVyIjoiKzkxODAwNzIwNDEzMyIsImlhdCI6MTczOTI3ODkxOCwiZXhwIjoxNzUyMjM4OTE4fQ.bHsPeLU8VS6mudIbM9aa8JOhgMuY2RKBb6S_aap95Vw
+
+
+### Create a new question
+POST {{baseUrl}}/{{resourceName}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "question": "What is best thing in the world?",
+  "hint": "This is a helpful hint for the question hello"
+}
+
+### Get all questions
+GET {{baseUrl}}/{{resourceName}}
+Authorization: Bearer {{token}}
+
+### Get a specific question by ID
+GET {{baseUrl}}/{{resourceName}}/a59cf713-f9a3-4aaf-b291-2e43ce2fb055
+Authorization: Bearer {{token}}
+
+### Update a question
+PATCH {{baseUrl}}/{{resourceName}}/1
+Content-Type: application/jsonAuthorization: Bearer {{token}}
+Authorization: Bearer {{token}}
+
+{
+  "id": "1",
+  "question": "Updated Question Text",
+  "hint": "Updated hint for the question"
+}
+
+### Delete a question
+DELETE {{baseUrl}}/{{resourceName}}/1Authorization: Bearer {{token}}

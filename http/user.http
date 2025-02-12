@@ -1,0 +1,47 @@
+### User API Tests
+@baseURL = http://localhost:3000
+@token = your-jwt-token-here
+
+### Create User
+POST {{baseURL}}/users/create
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "phoneNumber": "+918007204133",
+    "password": "password123"
+}
+
+### Login User
+POST {{baseURL}}/users/login
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+### Get All Users (Admin only)
+GET {{baseURL}}/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Get User by ID
+GET {{baseURL}}/users/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Update User
+PATCH {{baseURL}}/users/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "email": "updated@example.com",
+    "phoneNumber": "+1234567890",
+    "password": "newpassword123"
+}
+
+### Delete User
+DELETE {{baseURL}}/users/1
+Authorization: Bearer {{token}}

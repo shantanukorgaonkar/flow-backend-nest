@@ -1,0 +1,29 @@
+# Base Architecture
+- NestJS backend with TypeScript
+- RESTful API design using Base classes
+- Domain-driven design principles
+- Repository pattern implementation
+
+# Key Components
+1. Base Classes Hierarchy:
+- BaseModel: Domain model foundation
+- BaseDto: Data transfer objects
+- BaseController: Generic CRUD endpoints
+- BaseService: Business logic layer
+- EntityMapper: ORM mapping interface
+
+2. File Organization:
+/src
+├── common/
+│   ├── base.controller.ts
+│   ├── base.service.ts
+│   ├── base.model.ts
+│   ├── base.entity.ts
+│   └── base.dto.ts
+├── domain/
+├── dto/
+└── db/
+
+3. Import Patterns:
+- Currently using relative imports
+- Consider path aliases for better maintainability
