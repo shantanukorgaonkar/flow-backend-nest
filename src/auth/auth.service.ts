@@ -51,7 +51,7 @@ export class AuthService {
         if (!passwordMatch) {
             throw new HttpException('Password Incorrect.', HttpStatus.BAD_REQUEST)
         }
-        const jwtTokenPayload = { sub: user.id, email: user.email, phoneNumber: user.phoneNumber }
+        const jwtTokenPayload = { userId: user.id, email: user.email, phoneNumber: user.phoneNumber }
         const token = await new GenerateAuthToken(this.jwtService, this.configService).generate(jwtTokenPayload)
         return JSON.stringify({ accessToken: token, user: user })
     }

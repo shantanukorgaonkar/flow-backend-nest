@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:3000
+
+### Link question to framework
+POST {{baseUrl}}/framework-questions
+Content-Type: application/json
+
+{
+    "questionId": "{{questionId}}",
+    "frameworkId": "{{frameworkId}}",
+    "order": 1
+}
+
+### Get all framework questions
+GET {{baseUrl}}/framework-questions
+
+### Get specific framework question
+GET {{baseUrl}}/framework-questions/{{frameworkQuestionId}}

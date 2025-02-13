@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000
+
+### Get all frameworks
+GET {{baseUrl}}/frameworks
+
+### Get frameworks with questions
+GET {{baseUrl}}/frameworks/with-questions
+
+### Create a new framework
+POST {{baseUrl}}/frameworks
+Content-Type: application/json
+
+{
+    "name": "Software Architecture Principles",
+    "description": "Core principles and patterns of software architecture",
+    "category": "ARCHITECTURE"
+}
+
+### Create another framework
+POST {{baseUrl}}/frameworks
+Content-Type: application/json
+
+{
+    "name": "Clean Code Practices",
+    "description": "Essential practices for writing maintainable code",
+    "category": "BEST_PRACTICES"
+}

@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInBob25lTnVtYmVyIjoiKzkxODAwNzIwNDEzMyIsImlhdCI6MTczOTM5MDA1NSwiZXhwIjoxNzUyMzUwMDU1fQ.TJnqyhwQGGwp7Vs4WWwgKAWG-x67e_7odHebZoGCKME
+
+### Get user's conversation history
+GET {{baseUrl}}/client/conversations
+Authorization: Bearer {{token}}
+
+### Get available frameworks
+GET {{baseUrl}}/client/frameworks/available
+Authorization: Bearer {{token}}
+
+### Start new conversation with framework
+POST {{baseUrl}}/client/conversations/start
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "frameworkId": "framework-uuid-here"
+}
+
+### Start new freehand conversation
+POST {{baseUrl}}/client/conversations/start
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+}
+
+### Get user's answer history
+GET {{baseUrl}}/client/answers/history
+Authorization: Bearer {{token}}
+
+### Submit answer in conversation
+POST {{baseUrl}}/client/conversations/{{conversationId}}/answer
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "questionId": "question-uuid-here",
+    "answer": "User's answer text here"
+}

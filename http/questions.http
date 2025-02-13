@@ -2,35 +2,36 @@
 @resourceName = questions
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInBob25lTnVtYmVyIjoiKzkxODAwNzIwNDEzMyIsImlhdCI6MTczOTI3ODkxOCwiZXhwIjoxNzUyMjM4OTE4fQ.bHsPeLU8VS6mudIbM9aa8JOhgMuY2RKBb6S_aap95Vw
 
+### Get all questions
+GET {{baseUrl}}/questions
+
+### Get questions with frameworks
+GET {{baseUrl}}/questions/with-frameworks
 
 ### Create a new question
-POST {{baseUrl}}/{{resourceName}}
+POST {{baseUrl}}/questions
 Content-Type: application/json
-Authorization: Bearer {{token}}
 
 {
-  "question": "What is best thing in the world?",
-  "hint": "This is a helpful hint for the question hello"
+    "text": "What are the key principles of clean code?",
+    "type": "MULTIPLE_CHOICE",
+    "options": [
+        "Code readability and maintainability",
+        "Single Responsibility Principle",
+        "Don't Repeat Yourself (DRY)",
+        "Meaningful naming conventions"
+    ],
+    "correctAnswer": "Code readability and maintainability",
+    "explanation": "Clean code focuses primarily on making code readable and maintainable for other developers."
 }
 
-### Get all questions
-GET {{baseUrl}}/{{resourceName}}
-Authorization: Bearer {{token}}
-
-### Get a specific question by ID
-GET {{baseUrl}}/{{resourceName}}/a59cf713-f9a3-4aaf-b291-2e43ce2fb055
-Authorization: Bearer {{token}}
-
-### Update a question
-PATCH {{baseUrl}}/{{resourceName}}/1
-Content-Type: application/jsonAuthorization: Bearer {{token}}
-Authorization: Bearer {{token}}
+### Create another technical question
+POST {{baseUrl}}/questions
+Content-Type: application/json
 
 {
-  "id": "1",
-  "question": "Updated Question Text",
-  "hint": "Updated hint for the question"
+    "text": "What is the main purpose of dependency injection?",
+    "type": "OPEN_ENDED",
+    "explanation": "Dependency injection is a design pattern that implements inversion of control for resolving dependencies.",
+    "tags": ["architecture", "design-patterns"]
 }
-
-### Delete a question
-DELETE {{baseUrl}}/{{resourceName}}/1Authorization: Bearer {{token}}

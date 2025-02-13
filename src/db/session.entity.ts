@@ -26,6 +26,7 @@ export class SessionEntity implements EntityMapper<SessionModel> {
         this.startTime = model.startTime;
         this.endTime = model.endTime;
         this.user = model.user as UserEntity;
+        this.journalEntries = model.journalEntries as JournalEntryEntity[];
         return this;
     }
 
@@ -35,6 +36,7 @@ export class SessionEntity implements EntityMapper<SessionModel> {
         model.startTime = this.startTime;
         model.endTime = this.endTime;
         model.user = this.user;
+        model.journalEntries = this.journalEntries;
         return model;
     }
 }

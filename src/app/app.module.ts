@@ -19,6 +19,13 @@ import { FrameworkEntity } from '../db/framework.entity';
 import { FrameworkQuestionEntity } from '../db/framework-question.entity';
 import { QuestionController } from '../questions/questions.controller';
 import { QuestionService } from '../questions/questions.service';
+import { ClientController } from 'src/client/client.controller';
+import { FrameworkService } from 'src/frameworks/framework.service';
+import { JournalEntryService } from '../journal-entry/journal-entry.service';
+import { FrameworkController } from '../frameworks/framework.controller';
+import { SessionController } from 'src/journal-entry/session.controller';
+import { SessionModule } from 'src/journal-entry/session.module';
+import { SessionService } from 'src/journal-entry/session.service';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -30,7 +37,7 @@ import { QuestionService } from '../questions/questions.service';
       UserEntity, QuestionEntity, JournalEntryEntity, SessionEntity, FrameworkEntity, FrameworkQuestionEntity
     ])
   ],
-  controllers: [AppController, UserController, QuestionController],
-  providers: [AppService, ConfigService, OpenaiService, GroqAIService, UserService, AuthService, JwtService, QuestionService],
+  controllers: [AppController, UserController, QuestionController, ClientController, FrameworkController, SessionController],
+  providers: [AppService, ConfigService, OpenaiService, GroqAIService, UserService, AuthService, JwtService, QuestionService, FrameworkService, JournalEntryService, SessionService],
 })
 export class AppModule { }
