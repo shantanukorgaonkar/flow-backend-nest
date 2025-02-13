@@ -55,7 +55,7 @@ export class SessionController {
         const question = new QuestionModel()
         if (entries.length == 0) {
             question.hint = "This is the hint to the next question"
-            question.question = "This is the next question"
+            question.question = "Hello, How can I help ?"
         }
         else {
             question.question = await this.aiService.getNextQuestion(entries)
