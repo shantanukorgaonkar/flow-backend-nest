@@ -6,7 +6,7 @@ export class ChatTextMessageDto implements BaseDto {
     
     @IsNotEmpty()
     @IsString()
-    message: string;
+    message!: string;
 
     toModel(): ChatMessage {
         const model = new ChatTextMessage(ChatMessageType.USER_TEXT_MESSAGE);

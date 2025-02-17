@@ -3,42 +3,38 @@ import { FrameworkQuestionEntity } from "./framework-question.entity";
 import { JournalEntryEntity } from "./journal-entry.entity";
 import { QuestionModel } from "../domain/models/question.model";
 import { EntityMapper } from "../common/base.entity";
+import { question_entity as QuestionEntitySchema } from "@prisma/client";
 
 @Entity()
-export class QuestionEntity implements EntityMapper<QuestionModel> {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class QuestionEntity implements QuestionEntitySchema, EntityMapper<QuestionModel> {
+    id!: string;
 
-    @Column()
-    question: string;
+    question!: string;
 
-    @Column()
-    hint: string;
+    hint!: string;
 
-    @OneToMany(() => FrameworkQuestionEntity, (frameworkQuestion) => frameworkQuestion.question)
-    frameworkQuestions: FrameworkQuestionEntity[];
+    frameworkQuestions?: FrameworkQuestionEntity[];
 
-    @OneToMany(() => JournalEntryEntity, (entry) => entry.question)
-    journalEntries: JournalEntryEntity[];
-    
-        // //Model to EntityMapper
-        // static from(user: QuestionModel): QuestionEntity {
-        //     const { id, question, hint } = user;
-        //     const userEntity = new QuestionEntity();
-        //     userEntity.id = id;
-        //     userEntity.question = question;
-        //     userEntity.hint = hint;
-        //     return userEntity;
-        // }
-    
-        // //Entity to ModelMapper
-        // toModel(): QuestionModel {
-        //     return {
-        //         id: this.id,
-        //         question: this.question,
-        //         hint: this.hint
-        //     }
-        // }
+    journalEntries?: JournalEntryEntity[];
+
+    // //Model to EntityMapper
+    // static from(user: QuestionModel): QuestionEntity {
+    //     const { id, question, hint } = user;
+    //     const userEntity = new QuestionEntity();
+    //     userEntity.id = id;
+    //     userEntity.question = question;
+    //     userEntity.hint = hint;
+    //     return userEntity;
+    // }
+
+    // //Entity to ModelMapper
+    // toModel(): QuestionModel {
+    //     return {
+    //         id: this.id,
+    //         question: this.question,
+    //         hint: this.hint
+    //     }
+    // }
 
     copy(model: QuestionModel) {
         this.id = model.id;

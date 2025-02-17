@@ -4,15 +4,15 @@ import { BaseDto } from "../common/base.dto";
 
 export class CreateUserDto implements BaseDto {
     @IsEmail()
-    email: string;
+    email!: string;
 
     @IsNumberString()
     @IsPhoneNumber()
-    phoneNumber: string;
+    phoneNumber!: string;
 
     @IsString()
     @MinLength(8)
-    password: string;
+    password!: string;
 
     toModel(): UserModel {
         const model = new UserModel()

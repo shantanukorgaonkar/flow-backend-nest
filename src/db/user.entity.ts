@@ -1,45 +1,27 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { UserModel, UserType } from "../domain/models/user.model";
-import { SessionEntity } from "../db/session.entity";
-import { JournalEntryEntity } from "../db/journal-entry.entity";
+import { user_entity as UserSchema } from '@prisma/client';
 import { EntityMapper } from "../common/base.entity";
+import { UserModel, UserType } from "../domain/models/user.model";
 
-@Entity()
-export class UserEntity implements EntityMapper<UserModel> {
+export class UserEntity implements UserSchema, EntityMapper<UserModel> {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
-    @Column({unique:true})
-    email: string;
+    email!: string;
 
-    @Column({unique:true})
-    password: string;
+    password!: string;
 
-    @Column({unique:true})
-    phoneNumber: string;
+    phoneNumber!: string;
 
-    @Column({ type: 'varchar'})
-    userType: UserType;
+    userType!: UserType;
 
-    @Column({ type: "int", nullable: true, default: null})
-    otp: number
+    otp!: number
 
-    @OneToMany(() => SessionEntity, (session) => session.user)
-    sessions: SessionEntity[];
+    createdAt!: Date;
 
-    @OneToMany(() => JournalEntryEntity, (entry) => entry.user)
-    journalEntries: JournalEntryEntity[];
+    updatedAt!: Date;
 
-    @CreateDateColumn()
-    createdAt: Date;
+    deletedDate!: Date
 
-    @UpdateDateColumn()
-    updatedAt: Date;
-
-    @DeleteDateColumn()
-    deletedDate: Date
-    
 
     //Model to EntityMapper
     static from(user: UserModel): UserEntity {

@@ -2,14 +2,14 @@ import { RawCode } from "./code.model";
 
 class ChatThread {
     id?: string;
-    description: string;
-    userId: string;
-    timestamp: Date;
+    description!: string;
+    userId!: string;
+    timestamp!: Date;
 }
 
 class ChatMessage {
     id?: string;
-    description: string;
+    description!: string;
     timestamp: Date;
     type: ChatMessageType;
 
@@ -47,8 +47,8 @@ class ChatModelCodeMessage extends ChatMessage {
 
     keyId?: string;
     content: string;
-    modelId: string;
-    codeSnippets: RawCode[]
+    modelId!: string;
+    codeSnippets!: RawCode[]
     
     constructor(content: string) {
         super(ChatMessageType.MODEL_CODE_MESSAGE);

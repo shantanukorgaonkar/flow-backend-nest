@@ -3,23 +3,21 @@ import { UserEntity } from "./user.entity";
 import { JournalEntryEntity } from "./journal-entry.entity";
 import { EntityMapper } from "../common/base.entity";
 import { SessionModel } from "src/domain/models/session.model";
+import { session_entity as SessionEntitySchema } from "@prisma/client";
 
 @Entity()
-export class SessionEntity implements EntityMapper<SessionModel> {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class SessionEntity implements SessionEntitySchema, EntityMapper<SessionModel> {
+    id!: string;
 
-    @Column()
-    startTime: Date;
+    startTime!: Date;
 
-    @Column()
-    endTime: Date;
+    endTime!: Date;
 
-    @ManyToOne(() => UserEntity, (user) => user.sessions)
-    user: UserEntity;
+    userId!: number | null;
+    
+    user?: UserEntity;
 
-    @OneToMany(() => JournalEntryEntity, (entry) => entry.session)
-    journalEntries: JournalEntryEntity[];
+    journalEntries?: JournalEntryEntity[];
 
     copy(model: SessionModel) {
         this.id = model.id;

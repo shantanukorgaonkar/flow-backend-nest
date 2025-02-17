@@ -6,11 +6,11 @@ export class ChatThreadDto implements BaseDto {
     
     @IsNotEmpty()
     @IsString()
-    description: string;
+    description!: string;
 
     @IsNotEmpty()
     @IsString()
-    userId: string;
+    userId!: string;
 
     toModel(): ChatThread {
         const model = new ChatThread();

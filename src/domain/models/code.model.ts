@@ -1,12 +1,12 @@
 class RawCode {
 
-    id: string;
-    type: CodeType;
-    code: string;
-    description: string;
+    id!: string;
+    type!: CodeType;
+    code!: string;
+    description!: string;
     parentId?: string;
-    index: number;
-    length: number;
+    index!: number;
+    length!: number;
 
 }
 

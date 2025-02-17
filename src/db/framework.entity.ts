@@ -1,21 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { FrameworkQuestionEntity } from "../db/framework-question.entity";
-import { EntityMapper } from "../common/base.entity";
+import { framework_entity } from "@prisma/client";
 import { FrameworkModel } from "src/domain/models/framework.model";
+import { EntityMapper } from "../common/base.entity";
+import { FrameworkQuestionEntity } from "../db/framework-question.entity";
 
-@Entity()
-export class FrameworkEntity implements EntityMapper<FrameworkModel> {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class FrameworkEntity implements framework_entity, EntityMapper<FrameworkModel> {
+    id!: string;
 
-    @Column()
-    title: string;
+    title!: string;
 
-    @Column()
-    description: string;
+    description!: string;
 
-    @OneToMany(() => FrameworkQuestionEntity, (frameworkQuestion) => frameworkQuestion.framework)
-    frameworkQuestions: FrameworkQuestionEntity[];
+    frameworkQuestions!: FrameworkQuestionEntity[];
 
     copy(model: FrameworkModel) {
         this.id = model.id;

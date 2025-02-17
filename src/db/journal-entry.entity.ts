@@ -4,23 +4,23 @@ import { QuestionEntity } from "../db/question.entity";
 import { SessionEntity } from "../db/session.entity";
 import { EntityMapper } from "../common/base.entity";
 import { JournalEntryModel } from "src/domain/models/journal-entry.model";
+import { journal_entry_entity } from "@prisma/client";
 
-@Entity()
-export class JournalEntryEntity implements EntityMapper<JournalEntryModel> {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class JournalEntryEntity implements journal_entry_entity, EntityMapper<JournalEntryModel> {
+    id!: string;
 
-    @Column()
-    entry: string;
+    entry!: string;
 
-    @ManyToOne(() => UserEntity, (user) => user.journalEntries)
-    user: UserEntity;
+    user?: UserEntity;
 
-    @ManyToOne(() => QuestionEntity, (question) => question.journalEntries)
-    question: QuestionEntity;
+    userId!: number | null;
 
-    @ManyToOne(() => SessionEntity, (session) => session.journalEntries)
-    session: SessionEntity;
+    question?: QuestionEntity;
+
+    questionId!: string | null;
+
+    session?: SessionEntity;
+    sessionId!: string | null;
 
     copy(model: JournalEntryModel) {
         this.id = model.id;

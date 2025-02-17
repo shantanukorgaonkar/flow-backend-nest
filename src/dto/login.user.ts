@@ -4,10 +4,10 @@ import { BaseDto } from "../common/base.dto";
 
 export class LoginUserDto implements BaseDto {
     @IsEmail()
-    email: string;
+    email!: string;
 
     @IsString()
     @MinLength(8)
-    password: string;
+    password!: string;
 
 }

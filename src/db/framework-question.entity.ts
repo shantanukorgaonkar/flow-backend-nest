@@ -5,21 +5,21 @@ import { EntityMapper } from "../common/base.entity";
 import { BaseModel } from "src/common/base.model";
 import { FrameworkModel } from "src/domain/models/framework.model";
 import { FrameworkQuestionModel } from "src/domain/models/framework-question.model";
+import { framework_question_entity } from "@prisma/client";
 
-@Entity()
-export class FrameworkQuestionEntity implements EntityMapper<FrameworkQuestionModel> {
+export class FrameworkQuestionEntity implements framework_question_entity, EntityMapper<FrameworkQuestionModel> {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id!: string;
 
-    @Column()
-    order: number;
+    order!: number;
 
-    @ManyToOne(() => QuestionEntity, (question) => question.frameworkQuestions)
-    question: QuestionEntity;
+    question!: QuestionEntity;
 
-    @ManyToOne(() => FrameworkEntity, (framework) => framework.frameworkQuestions)
-    framework: FrameworkEntity;
+    questionId!: string | null;
+
+    framework!: FrameworkEntity;
+    
+    frameworkId!: string | null;
 
     copy(model: FrameworkQuestionModel) {
         this.id = model.id;

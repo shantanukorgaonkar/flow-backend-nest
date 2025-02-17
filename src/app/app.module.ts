@@ -26,6 +26,7 @@ import { FrameworkController } from '../frameworks/framework.controller';
 import { SessionController } from 'src/journal-entry/session.controller';
 import { SessionModule } from 'src/journal-entry/session.module';
 import { SessionService } from 'src/journal-entry/session.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -33,6 +34,7 @@ import { SessionService } from 'src/journal-entry/session.service';
   }),
     DatabaseModule,
     AuthModule,
+    PrismaModule,
     TypeOrmModule.forFeature([ 
       UserEntity, QuestionEntity, JournalEntryEntity, SessionEntity, FrameworkEntity, FrameworkQuestionEntity
     ])

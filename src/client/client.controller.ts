@@ -12,13 +12,17 @@ export class ClientController {
         private readonly frameworkService: FrameworkService,
         private readonly questionService: QuestionService,
         private readonly journalEntryService: JournalEntryService,
-    ) {}
+    ) { }
 
     @Get('conversations')
     async getUserConversations(@Request() req) {
         // Return user's conversation history
         const entries = await this.journalEntryService.findByUserId(req.user.id);
-        const sessions = entries.map(entry => entry.session.id);
+        const sessions = entries.map(entry => {
+            if (entry.session) {
+                return entry.session.id;
+            }
+        });
         const uniqueSessions = [...new Set(sessions)];
         return {
             userId: req.user.id,
@@ -52,12 +56,15 @@ export class ClientController {
         const entries = await this.journalEntryService.findByUserId(req.user.id);
         return {
             userId: req.user.id,
-            answers: entries.map(entry => ({
-                id: entry.id,
-                answer: entry.entry,
-                questionId: entry.question.id,
-                sessionId: entry.session.id
-            }))
+            answers: entries.map(entry => {
+
+                ({
+                    id: entry.id,
+                    answer: entry.entry,
+                    questionId: entry.questionId,
+                    sessionId: entry.sessionId
+                })
+            })
         };
     }
 
@@ -87,7 +94,7 @@ export class ClientController {
         if (!entries.length) {
             throw new NotFoundException('Conversation not found');
         }
-        
+
         return {
             id: conversationId,
             entries: entries.map(entry => ({
@@ -115,12 +122,13 @@ export class ClientController {
         const entries = await this.journalEntryService.findBySessionId(conversationId);
         const lastEntry = entries[entries.length - 1];
         const frameworkId = req.query.frameworkId; // Add this parameter to the request
-        
+
         let nextQuestion;
         if (!lastEntry) {
             nextQuestion = await this.questionService.getFirstQuestion(frameworkId);
         } else {
-            nextQuestion = await this.questionService.getNextQuestion(lastEntry.question.id, frameworkId);
+            if (lastEntry.questionId)
+                nextQuestion = await this.questionService.getNextQuestion(lastEntry.questionId, frameworkId);
         }
 
         if (!nextQuestion) {

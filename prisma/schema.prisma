@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model chat_message_entity {
+  id          Int      @id @default(autoincrement())
+  description String
+  timestamp   DateTime
+  type        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  threadId    String
+}
+
+model chat_model_code_message_entity {
+  id        Int      @id @default(autoincrement())
+  content   String
+  threadId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  parentId  String
+}
+
+model chat_text_message_entity {
+  id        Int      @id @default(autoincrement())
+  content   String
+  threadId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  parentId  String
+}
+
+model chat_thread_entity {
+  id          Int          @id @default(autoincrement())
+  description String
+  timestamp   DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+  authorId    Int?
+  user_entity user_entity? @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model framework_entity {
+  id                        String                      @id
+  title                     String
+  description               String
+  framework_question_entity framework_question_entity[]
+}
+
+model framework_question_entity {
+  id               String            @id
+  order            Int
+  questionId       String?
+  frameworkId      String?
+  framework_entity framework_entity? @relation(fields: [frameworkId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  question_entity  question_entity?  @relation(fields: [questionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model journal_entry_entity {
+  id              String           @id
+  entry           String
+  userId          Int?
+  questionId      String?
+  sessionId       String?
+  session_entity  session_entity?  @relation(fields: [sessionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  question_entity question_entity? @relation(fields: [questionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_entity     user_entity?     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement())
+  timestamp BigInt
+  name      String
+}
+
+model question_entity {
+  id                        String                      @id
+  question                  String
+  hint                      String
+  framework_question_entity framework_question_entity[]
+  journal_entry_entity      journal_entry_entity[]
+}
+
+model raw_code_entity {
+  id          Int    @id @default(autoincrement())
+  type        String
+  code        String
+  description String
+  index       Int
+  length      Int
+  parentId    String
+}
+
+model session_entity {
+  id                   String                 @id
+  startTime            DateTime
+  endTime              DateTime
+  userId               Int?
+  journal_entry_entity journal_entry_entity[]
+  user_entity          user_entity?           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user_entity {
+  id                   Int                    @id @default(autoincrement())
+  email                String                 @unique(map: "sqlite_autoindex_user_entity_1")
+  password             String                 @unique(map: "sqlite_autoindex_user_entity_2")
+  phoneNumber          String                 @unique(map: "sqlite_autoindex_user_entity_3")
+  userType             String
+  otp                  Int?
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @default(now())
+  deletedDate          DateTime?
+  chat_thread_entity   chat_thread_entity[]
+  journal_entry_entity journal_entry_entity[]
+  session_entity       session_entity[]
+}

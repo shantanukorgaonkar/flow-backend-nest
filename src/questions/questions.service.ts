@@ -40,7 +40,7 @@ export class QuestionService extends BaseService<QuestionEntity, QuestionModel> 
         return firstQuestion.toModel();
     }
 
-    async getNextQuestion(currentQuestionId: string, frameworkId: string): Promise<QuestionModel> {
+    async getNextQuestion(currentQuestionId: string, frameworkId: string): Promise<QuestionModel | null> {
         const currentFrameworkQuestion = await this.repository
             .createQueryBuilder('question')
             .innerJoinAndSelect('question.frameworkQuestions', 'fq')
@@ -52,7 +52,7 @@ export class QuestionService extends BaseService<QuestionEntity, QuestionModel> 
             throw new NotFoundException('Current question not found in framework');
         }
 
-        const currentOrder = currentFrameworkQuestion.frameworkQuestions[0].order;
+        const currentOrder = currentFrameworkQuestion.frameworkQuestions?.[0]?.order;
 
         const nextQuestion = await this.repository
             .createQueryBuilder('question')
@@ -77,7 +77,7 @@ export class QuestionService extends BaseService<QuestionEntity, QuestionModel> 
             return true;
         }
 
-        const currentOrder = currentFrameworkQuestion.frameworkQuestions[0].order;
+        const currentOrder = currentFrameworkQuestion.frameworkQuestions?.[0]?.order;
 
         const nextQuestion = await this.repository
             .createQueryBuilder('question')

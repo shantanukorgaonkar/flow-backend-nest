@@ -10,7 +10,7 @@ export interface AuthPayload {
 }
 
 export class TokenPayload {
-    userId: number;
+    userId!: number;
     email?: string;
     phoneNumber?: string;
 }
